@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Lab — Productos Digitales Construidos con AI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #ffffff;
+      --bg-muted: #ffffff;
+      --border:   #e2e2e2;
+      --fg:       #0a0a0a;
+      --fg-muted: #555;
+      --fg-faint: #999;
+      --card-bg:  #ffffff;
+      --inv-bg:   #0a0a0a;
+      --inv-fg:   #ffffff;
+      --t: background 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
+    }
+
+    [data-theme="dark"] {
+      --bg:       #0c0c0c;
+      --bg-muted: #181818;
+      --border:   #2c2c2c;
+      --fg:       #efefef;
+      --fg-muted: #aaa;
+      --fg-faint: #666;
+      --card-bg:  #141414;
+      --inv-bg:   #f0f0f0;
+      --inv-fg:   #0a0a0a;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--fg); font-size: 15px; line-height: 1.6; overflow-x: hidden; transition: var(--t); }
+    a { text-decoration: none; color: inherit; }
+
+    /* ─── TOPBAR ─── */
+    .topbar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 52px;
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.55);
+      backdrop-filter: blur(18px) saturate(180%);
+      -webkit-backdrop-filter: blur(18px) saturate(180%);
+      border-bottom: 1px solid rgba(0,0,0,0.07);
+      transition: var(--t);
+    }
+    [data-theme="dark"] .topbar {
+      background: rgba(12,12,12,0.6);
+      border-bottom-color: rgba(255,255,255,0.07);
+    }
+    .logo { font-size: 15px; font-weight: 800; letter-spacing: -.01em; color: var(--fg); font-style: italic; }
+    .logo b { font-style: normal; font-weight: 400; color: var(--fg-faint); }
+
+    .topnav { display: flex; gap: 32px; align-items: center; }
+    .topnav a {
+      display: flex; flex-direction: column; gap: 3px;
+      color: var(--fg); transition: opacity .15s;
+    }
+    .topnav a:hover { opacity: .65; }
+    .topnav-title {
+      font-size: 13px; font-weight: 700;
+      display: flex; align-items: center; gap: 5px;
+    }
+    .topnav-title::after { content: '↗'; font-size: 11px; opacity: .6; }
+    .topnav-desc { font-size: 11px; color: var(--fg-faint); font-weight: 400; line-height: 1.4; max-width: 140px; }
+
+    .theme-btn {
+      display: flex; align-items: center; gap: 7px;
+      padding: 7px 10px; border-radius: 100px;
+      border: none; background: transparent;
+      color: var(--fg); font: 600 12px/1 'Inter', sans-serif;
+      cursor: pointer; transition: var(--t); white-space: nowrap;
+    }
+    .theme-btn:hover { opacity: .7; }
+    .track {
+      width: 30px; height: 17px; border-radius: 100px;
+      background: var(--border); position: relative; transition: background .3s;
+    }
+    [data-theme="dark"] .track { background: var(--fg); }
+    .thumb {
+      position: absolute; top: 2.5px; left: 2.5px;
+      width: 12px; height: 12px; border-radius: 50%;
+      background: var(--fg-faint); transition: transform .3s, background .3s;
+    }
+    [data-theme="dark"] .thumb { transform: translateX(13px); background: var(--bg); }
+    .topbar-email { font-size: 12px; color: var(--fg-faint); }
+
+    /* ─── HERO ─── */
+    .hero {
+      display: grid; grid-template-columns: 1fr 44%;
+      min-height: 90vh; position: relative; overflow: hidden;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-left {
+      padding: 80px 52px 80px;
+      display: flex; flex-direction: column; justify-content: center;
+      position: relative; z-index: 1;
+    }
+    .hero-blob {
+      position: absolute; inset: 0; pointer-events: none; overflow: hidden;
+      background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
+      background-size: 28px 28px; opacity: .55;
+    }
+    [data-theme="dark"] .hero-blob { opacity: .25; }
+
+    .hero-eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--fg-faint); margin-bottom: 22px;
+    }
+    .hero-h1 {
+      font-size: clamp(44px, 5.8vw, 78px); font-weight: 800;
+      letter-spacing: -.04em; line-height: 1.02; margin-bottom: 10px;
+    }
+    .hero-sub {
+      font-size: clamp(17px, 2vw, 24px); font-weight: 400; font-style: italic;
+      color: var(--fg-muted); margin-bottom: 36px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .hero-sub::before { content:''; width: 32px; height: 1px; background: var(--fg-faint); flex-shrink: 0; }
+
+    .hero-checks { list-style: none; margin-bottom: 44px; }
+    .hero-checks li {
+      font-size: 14px; color: var(--fg-muted); padding: 6px 0;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .hero-checks li::before {
+      content: '✓'; font-size: 11px; font-weight: 800;
+      width: 20px; height: 20px; border-radius: 50%;
+      background: var(--fg); color: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .hero-ctas { display: flex; gap: 12px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 28px; border-radius: 100px;
+      font: 600 13px/1 'Inter', sans-serif; cursor: pointer;
+      border: 1.5px solid transparent; transition: all .15s;
+    }
+    .btn-dark { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+    .btn-dark:hover { opacity: .82; }
+    .btn-ghost { background: transparent; color: var(--fg); border-color: var(--border); }
+    .btn-ghost:hover { border-color: var(--fg); }
+
+    /* floating decorations */
+    .hero-deco {
+      position: absolute; font-size: 11px; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+    }
+    .deco-tag {
+      top: 28px; right: 52px;
+      background: var(--fg); color: var(--bg);
+      padding: 8px 18px; border-radius: 100px;
+    }
+    .deco-arrow { font-size: 28px; top: 60px; left: 44%; opacity: .18; transform: rotate(-20deg); }
+    .deco-star { font-size: 22px; bottom: 100px; left: 52px; opacity: .2; }
+
+    /* hero right — photo area */
+    .hero-right {
+      background: var(--bg-muted);
+      border-left: 1px solid var(--border);
+      position: relative; display: flex; align-items: flex-end; justify-content: center;
+      overflow: hidden; transition: var(--t);
+    }
+    .hero-photo-bg {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 110%, rgba(0,0,0,.06) 0%, transparent 65%);
+    }
+    [data-theme="dark"] .hero-photo-bg {
+      background: radial-gradient(ellipse at 50% 110%, rgba(255,255,255,.04) 0%, transparent 65%);
+    }
+    .hero-photo-placeholder {
+      position: relative; z-index: 1;
+      width: 260px; height: 380px; margin-bottom: 0;
+      border-radius: 130px 130px 0 0;
+      background: linear-gradient(175deg, var(--border) 0%, var(--fg-faint) 50%, var(--fg) 100%);
+      opacity: .55;
+      -webkit-mask-image: linear-gradient(to top, transparent 0%, black 35%);
+      mask-image: linear-gradient(to top, transparent 0%, black 35%);
+    }
+    /* scattered geometric bars — reference style */
+    .hero-right::before {
+      content: '';
+      position: absolute; top: 22%; right: 24px;
+      width: 5px; height: 52px; background: var(--fg); opacity: .1; border-radius: 3px;
+    }
+    .hero-right::after {
+      content: '';
+      position: absolute; bottom: 28%; left: 24px;
+      width: 5px; height: 36px; background: var(--fg); opacity: .08; border-radius: 3px;
+    }
+    .hero-pill {
+      position: absolute; top: 40px; left: 32px;
+      background: var(--fg); color: var(--bg);
+      padding: 10px 22px; border-radius: 100px;
+      font-size: 13px; font-weight: 700;
+    }
+    .hero-built {
+      position: absolute; bottom: 40px; right: 28px;
+      background: var(--bg); border: 1px solid var(--border);
+      padding: 10px 20px; border-radius: 100px;
+      font-size: 12px; font-weight: 600;
+      box-shadow: 0 4px 24px rgba(0,0,0,.1);
+      color: var(--fg); transition: var(--t);
+    }
+
+    /* ─── CAT NAV ─── */
+    .catnav {
+      background: var(--fg); display: flex; overflow-x: auto;
+      transition: background .3s;
+    }
+    .catnav a {
+      color: rgba(255,255,255,.45); white-space: nowrap;
+      font-size: 10.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+      padding: 32px 30px; display: flex; align-items: center; gap: 7px;
+      transition: color .15s;
+    }
+    [data-theme="dark"] .catnav a { color: rgba(255,255,255,.3); }
+    .catnav a:hover, .catnav a.on { color: #fff; }
+    .catnav a::after { content: '↗'; font-size: 9px; }
+
+    /* ─── SOCIAL STRIP ─── */
+    .socstrip {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 21px 52px; border-bottom: 1px solid var(--border);
+      transition: var(--t);
+    }
+    .socstrip-links { display: flex; gap: 26px; align-items: center; flex-wrap: wrap; }
+    .socstrip-links a {
+      font-size: 10.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--fg-faint); transition: color .15s, background .15s;
+      /* padding fijo siempre para que el hover no mueva el layout */
+      padding: 3px 8px; border-radius: 4px;
+    }
+    .socstrip-links a:hover { background: var(--fg); color: var(--bg); }
+    .socstrip-email { font-size: 12px; color: var(--fg-faint); }
+
+    /* ─── SECTION WRAPPER ─── */
+    .sec { padding: 110px 52px; transition: var(--t); }
+    .sec-label { font-size: 10.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--fg-faint); margin-bottom: 14px; }
+    .sec-h { font-size: clamp(30px, 3.8vw, 52px); font-weight: 800; letter-spacing: -.035em; line-height: 1.08; }
+    .sec-p { font-size: 14px; color: var(--fg-muted); max-width: 400px; line-height: 1.75; }
+
+    /* ─── OFFERINGS ─── */
+    .off-header {
+      display: grid; grid-template-columns: 1fr 1fr auto;
+      align-items: end; gap: 52px; margin-bottom: 72px;
+    }
+    .off-header .sec-h { font-size: clamp(32px, 4.5vw, 58px); }
+    .off-header .sec-p { text-align: left; max-width: 320px; }
+    .off-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      background: transparent; gap: 16px;
+    }
+    .off-card {
+      background: var(--card-bg); padding: 44px 38px;
+      display: flex; flex-direction: column; gap: 18px;
+      border: 1.5px solid var(--fg);
+      transition: var(--t);
+    }
+    .off-card:hover { background: var(--fg); color: var(--bg); }
+    .off-card:hover .off-desc { color: rgba(255,255,255,.6); }
+    .off-card:hover .off-more { color: rgba(255,255,255,.45); }
+    .off-card:hover .off-icon { background: rgba(255,255,255,.12); }
+    .off-icon {
+      width: 48px; height: 48px; border-radius: 8px;
+      background: transparent; border: 1.5px solid var(--fg);
+      display: flex; align-items: center; justify-content: center; font-size: 22px;
+      flex-shrink: 0;
+    }
+    .off-icon svg { width: 20px; height: 20px; }
+    .off-card:hover .off-icon { border-color: rgba(255,255,255,.4); }
+    .off-name { font-size: 16px; font-weight: 800; line-height: 1.25; }
+    .off-desc { font-size: 13px; color: var(--fg-muted); line-height: 1.65; flex: 1; }
+    .off-more { font-size: 11.5px; font-weight: 700; letter-spacing: .05em; color: var(--fg-faint); display: flex; align-items: center; gap: 5px; margin-top: 4px; }
+
+    /* ─── EXPERIENCE ─── */
+    .exp-sec { background: var(--bg-muted); }
+    .exp-head { text-align: center; margin-bottom: 56px; }
+    .exp-icon { font-size: 20px; margin-bottom: 14px; opacity: .4; }
+    .exp-list { display: flex; flex-direction: column; gap: 12px; }
+    .exp-row {
+      display: grid; grid-template-columns: 44px 1fr auto;
+      align-items: center; gap: 28px; padding: 28px 32px;
+      background: var(--card-bg);
+      border: 1.5px solid var(--fg);
+      transition: background .18s, color .18s; cursor: default;
+    }
+    .exp-row:hover { background: var(--fg); color: var(--bg); }
+    /* número como badge cuadrado */
+    .exp-n {
+      width: 36px; height: 36px; border-radius: 6px;
+      background: var(--fg); color: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 800; flex-shrink: 0;
+      transition: background .18s, color .18s;
+    }
+    .exp-row:hover .exp-n { background: var(--bg); color: var(--fg); }
+    .exp-t { font-size: 15px; font-weight: 700; }
+    .exp-s { font-size: 12px; color: var(--fg-faint); transition: color .18s; margin-top: 2px; }
+    .exp-row:hover .exp-s { color: rgba(255,255,255,.5); }
+    /* duración con línea vertical izquierda */
+    .exp-tag {
+      font-size: 10.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--fg-faint); white-space: nowrap;
+      border-left: 1.5px solid var(--border); padding-left: 24px;
+      transition: color .18s, border-color .18s;
+    }
+    .exp-row:hover .exp-tag { color: rgba(255,255,255,.5); border-color: rgba(255,255,255,.2); }
+
+    /* ─── CASE STUDY — alternating layout ─── */
+    .cases-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 72px; }
+    .case-item {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0; border-top: 1px solid var(--border);
+      transition: var(--t); cursor: pointer;
+    }
+    .case-item:hover .case-info { background: var(--fg); color: var(--bg); transition: var(--t); }
+    .case-item:hover .case-label { color: rgba(255,255,255,.4); }
+    .case-item:hover .case-desc { color: rgba(255,255,255,.6); }
+    .case-item:hover .case-cta { color: rgba(255,255,255,.8); }
+    .case-item:last-child { border-bottom: 1px solid var(--border); }
+    .case-item:nth-child(even) .case-img { order: 2; }
+    .case-item:nth-child(even) .case-info { order: 1; }
+
+    .case-img {
+      aspect-ratio: 4/3;
+      background: var(--bg-muted);
+      display: flex; align-items: center; justify-content: center;
+      border-right: 1px solid var(--border);
+      position: relative; overflow: hidden; transition: var(--t);
+    }
+    .case-img-label {
+      font-size: clamp(56px, 7vw, 88px); font-weight: 900;
+      letter-spacing: -.05em; color: var(--fg); opacity: .07;
+      user-select: none; line-height: 1;
+    }
+    .case-item:nth-child(even) .case-img {
+      border-right: none; border-left: 1px solid var(--border);
+    }
+    .case-cat-badge {
+      position: absolute; top: 20px; left: 20px;
+      font-size: 9.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+      background: var(--fg); color: var(--bg);
+      padding: 5px 12px; border-radius: 100px;
+    }
+    .case-info {
+      padding: 56px 48px;
+      display: flex; flex-direction: column; justify-content: center; gap: 16px;
+    }
+    .case-label { font-size: 10.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--fg-faint); }
+    .case-title { font-size: clamp(20px, 2.5vw, 32px); font-weight: 800; letter-spacing: -.025em; line-height: 1.15; }
+    .case-desc { font-size: 13.5px; color: var(--fg-muted); line-height: 1.7; }
+    .case-status-row { display: flex; align-items: center; gap: 12px; }
+    .sbadge {
+      font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      padding: 4px 12px; border-radius: 100px;
+    }
+    .sbadge-ready  { background:#14532d; color:#4ade80; }
+    .sbadge-proto  { background:#1e3a5f; color:#7db8f7; }
+    .sbadge-idea   { background: var(--bg-muted); color: var(--fg-faint); border: 1px solid var(--border); }
+    [data-theme="light"] .sbadge-ready { background:#dcfce7; color:#16a34a; }
+    [data-theme="light"] .sbadge-proto { background:#e8f0fe; color:#1a56db; }
+    .case-cta { font-size: 12.5px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; }
+    .case-cta:hover { text-decoration: underline; }
+
+    /* ─── TESTIMONIAL ─── */
+    .testi {
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      padding: 110px 52px;
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 80px; align-items: center;
+      transition: var(--t);
+    }
+    .testi-tag { font-size: 10.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--fg-faint); margin-bottom: 28px; }
+    .testi-q { font-size: clamp(22px, 3vw, 40px); font-weight: 700; letter-spacing: -.02em; line-height: 1.2; }
+    .testi-author { margin-top: 36px; display: flex; align-items: center; gap: 14px; }
+    .testi-av {
+      width: 46px; height: 46px; border-radius: 50%;
+      background: var(--bg-muted); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center; font-size: 20px;
+    }
+    .testi-name { font-size: 14px; font-weight: 700; }
+    .testi-role { font-size: 12px; color: var(--fg-faint); }
+    .testi-wave { margin-top: 4px; font-size: 18px; letter-spacing: -2px; opacity: .25; }
+    .testi-x { font-size: 44px; font-weight: 200; color: var(--border); align-self: flex-start; line-height: 1; }
+    .testi:hover { background: var(--fg); color: var(--bg); }
+    .testi:hover .testi-tag { color: rgba(255,255,255,.4); }
+    .testi:hover .testi-role { color: rgba(255,255,255,.5); }
+    .testi:hover .testi-av { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.2); }
+    .testi:hover .testi-x { color: rgba(255,255,255,.2); }
+
+    /* ─── STATS ─── */
+    .stats {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 1px; background: var(--border);
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    }
+    .stat { background: var(--bg); padding: 64px 40px; display: flex; flex-direction: column; align-items: center; gap: 8px; transition: var(--t); cursor: default; }
+    .stat:hover { background: var(--fg); color: var(--bg); }
+    .stat:hover .stat-lbl { color: rgba(255,255,255,.5); }
+    .stat-num { font-size: 64px; font-weight: 900; letter-spacing: -.06em; line-height: 1; }
+    .stat-lbl { font-size: 11.5px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--fg-faint); text-align: center; line-height: 1.4; margin-top: 4px; }
+
+    /* ─── CONTACT ─── */
+    .contact { background: var(--bg); padding: 120px 52px; display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: start; transition: var(--t); }
+    .contact-h {
+      font-size: clamp(48px, 6.5vw, 88px); font-weight: 900;
+      letter-spacing: -.05em; line-height: 0.96;
+    }
+    .contact-h em { font-style: italic; font-weight: 300; }
+    .contact-sub { font-size: 14px; color: var(--fg-muted); margin-top: 18px; line-height: 1.7; max-width: 380px; }
+    .contact-sub-sm { font-size: 13px; color: var(--fg-faint); margin-top: 10px; }
+
+    .form { display: flex; flex-direction: column; gap: 14px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-field { display: flex; flex-direction: column; gap: 5px; }
+    .form-lbl { font-size: 12px; font-weight: 600; }
+    .form-lbl sup { color: var(--fg); }
+    .inp, .txta {
+      background: var(--bg-muted); border: 1.5px solid var(--border);
+      border-radius: 6px; padding: 12px 15px;
+      font: 14px/1 'Inter', sans-serif; color: var(--fg);
+      outline: none; transition: var(--t); width: 100%;
+    }
+    .inp:focus, .txta:focus { border-color: var(--fg); }
+    .inp::placeholder, .txta::placeholder { color: var(--fg-faint); }
+    .txta { resize: vertical; min-height: 96px; line-height: 1.5; }
+    .tags-wrap {
+      display: flex; flex-wrap: wrap; gap: 7px; padding: 11px 14px;
+      background: var(--bg-muted); border: 1.5px solid var(--border);
+      border-radius: 6px; transition: var(--t);
+    }
+    .tag {
+      font: 600 11.5px/1 'Inter', sans-serif; padding: 5px 14px;
+      border-radius: 100px; border: 1.5px solid var(--border);
+      cursor: pointer; background: transparent; color: var(--fg); transition: all .15s;
+    }
+    .tag:hover, .tag.on { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+    .form-foot { display: flex; align-items: center; justify-content: space-between; }
+    .form-note { font-size: 11px; color: var(--fg-faint); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--bg); border-top: 1px solid var(--border);
+      padding: 30px 52px; display: flex; align-items: center; justify-content: space-between;
+      transition: var(--t);
+    }
+    .foot-links { display: flex; gap: 24px; }
+    .foot-links a { font-size: 11.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--fg-faint); transition: color .15s; }
+    .foot-links a:hover { background: var(--fg); color: var(--bg); padding: 3px 8px; border-radius: 4px; }
+    .foot-copy { font-size: 12px; color: var(--fg-faint); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 860px) {
+      .topbar { padding: 14px 20px; }
+      .topbar-email { display: none; }
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-left { padding: 60px 20px 48px; }
+      .hero-right { display: none; }
+      .sec { padding: 64px 20px; }
+      .off-header { grid-template-columns: 1fr; }
+      .off-grid { grid-template-columns: 1fr; }
+      .case-item { grid-template-columns: 1fr; }
+      .case-img { aspect-ratio: 16/9; border-right: none !important; border-left: none !important; border-bottom: 1px solid var(--border); }
+      .case-item:nth-child(even) .case-img { order: 0; }
+      .case-item:nth-child(even) .case-info { order: 1; }
+      .testi { grid-template-columns: 1fr; padding: 64px 20px; }
+      .testi-x { display: none; }
+      .stats { grid-template-columns: repeat(2,1fr); }
+      .contact { grid-template-columns: 1fr; padding: 64px 20px; gap: 48px; }
+      .form-row { grid-template-columns: 1fr; }
+      .socstrip { padding: 21px 20px; flex-wrap: wrap; gap: 12px; }
+      .socstrip-email { display: none; }
+      footer { padding: 22px 20px; flex-direction: column; gap: 14px; text-align: center; }
+      .exp-row { padding: 20px 20px; grid-template-columns: 36px 1fr auto; gap: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── TOPBAR ── -->
+<header class="topbar">
+  <div class="logo">it's me <b>→</b></div>
+  <nav class="topnav">
+    <a href="#products">
+      <span class="topnav-title">Mis Productos</span>
+      <span class="topnav-desc">Todos los productos digitales publicados.</span>
+    </a>
+    <a href="#about">
+      <span class="topnav-title">Acerca de</span>
+      <span class="topnav-desc">Método y proceso de construcción con AI.</span>
+    </a>
+    <a href="#contact">
+      <span class="topnav-title">Contacto</span>
+      <span class="topnav-desc">hola@productlab.io</span>
+    </a>
+    <button class="theme-btn" onclick="toggleTheme()">
+      <div class="track"><div class="thumb"></div></div>
+      <span id="t-lbl">Dark</span>
+    </button>
+  </nav>
+  <div class="topbar-email">hola@productlab.io</div>
+</header>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-blob"></div>
+  <div class="hero-left">
+    <p class="hero-eyebrow">Portfolio de productos digitales</p>
+    <h1 class="hero-h1">Hola, soy<br>Mauricio Méndez.</h1>
+    <p class="hero-sub">Aprende a construir prototipos ready to dev.</p>
+    <ul class="hero-checks">
+      <li>Cada producto es funcional a nivel prototipo</li>
+      <li>Documentación real: PRD, flujos y arquitectura</li>
+      <li>Videos, demos y archivos descargables incluidos</li>
+    </ul>
+    <div class="hero-ctas">
+      <a href="#products" class="btn btn-dark">Ver productos &rarr;</a>
+      <a href="#contact" class="btn btn-ghost">Colaborar</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-photo-bg"></div>
+    <div class="hero-photo-placeholder">⬡</div>
+    <div class="hero-pill">👋 Hola</div>
+    <div class="hero-built">🤖 Built with AI</div>
+  </div>
+</section>
+
+<!-- ── CATEGORY NAV ── -->
+<nav class="catnav">
+  <a href="#" class="on">Todos</a>
+  <a href="#">Fintech</a>
+  <a href="#">Edtech</a>
+  <a href="#">DevTools</a>
+  <a href="#">SaaS</a>
+  <a href="#">Marketplace</a>
+  <a href="#">Growth</a>
+  <a href="#">GTM</a>
+  <a href="#">Pivoting Ideas</a>
+</nav>
+
+<!-- ── SOCIAL STRIP ── -->
+<div class="socstrip">
+  <div class="socstrip-links">
+    <a href="#">GitHub</a>
+    <a href="#">YouTube</a>
+    <a href="#">LinkedIn</a>
+    <a href="#">Twitter</a>
+  </div>
+  <div class="socstrip-email">hola@productlab.io</div>
+</div>
+
+<!-- ── WHAT I'M OFFERING ── -->
+<section class="sec" id="about">
+  <div class="off-header">
+    <div>
+      <p class="sec-label">Qué incluye cada producto</p>
+      <h2 class="sec-h">Todo lo que<br>necesitas para<br>construirlo.</h2>
+    </div>
+    <p class="sec-p">Cada producto publicado tiene todos los artefactos necesarios para que un equipo lo tome y lleve a producción sin fricciones.</p>
+    <a href="#products" class="btn btn-ghost">All services &rarr;</a>
+  </div>
+  <div class="off-grid">
+    <div class="off-card">
+      <div class="off-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      </div>
+      <div class="off-name">UI-UX<br>Video Demo</div>
+      <p class="off-desc">Walkthrough completo embebido desde YouTube: flujos, funcionalidades y decisiones de diseño en video.</p>
+      <span class="off-more">Read more &rarr;</span>
+    </div>
+    <div class="off-card">
+      <div class="off-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      </div>
+      <div class="off-name">Visual<br>Documentación</div>
+      <p class="off-desc">PRD, arquitectura técnica, decisiones de producto, flujos de usuario y schema de base de datos.</p>
+      <span class="off-more">Read more &rarr;</span>
+    </div>
+    <div class="off-card">
+      <div class="off-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </div>
+      <div class="off-name">Strategy &<br>Downloads</div>
+      <p class="off-desc">PDFs, esquemas SQL, wireframes y design tokens para descarga directa. Sin registro requerido.</p>
+      <span class="off-more">Read more &rarr;</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── EXPERIENCE / PROCESS ── -->
+<section class="sec exp-sec">
+  <div class="exp-head">
+    <div class="exp-icon">◈</div>
+    <p class="sec-label" style="text-align:center">Metodología</p>
+    <h2 class="sec-h" style="text-align:center">Cómo se construye<br>cada producto.</h2>
+    <p class="sec-p" style="margin: 16px auto 0; text-align:center; max-width:500px">Un proceso de producto riguroso aplicado con AI para producir artefactos de calidad real en tiempo reducido.</p>
+  </div>
+  <div class="exp-list">
+    <div class="exp-row">
+      <div class="exp-n">1</div>
+      <div>
+        <div class="exp-t">Definición del problema y oportunidad</div>
+        <div class="exp-s">Research · Jobs to Be Done · Propuesta de valor</div>
+      </div>
+      <div class="exp-tag">Fase 1 &mdash; Producto</div>
+    </div>
+    <div class="exp-row">
+      <div class="exp-n">2</div>
+      <div>
+        <div class="exp-t">PRD y arquitectura técnica</div>
+        <div class="exp-s">Requerimientos · Flujos · Schema de datos · Stack sugerido</div>
+      </div>
+      <div class="exp-tag">Fase 2 &mdash; Documentación</div>
+    </div>
+    <div class="exp-row">
+      <div class="exp-n">3</div>
+      <div>
+        <div class="exp-t">Prototipo funcional con AI</div>
+        <div class="exp-s">Construido con Claude · v0 · Cursor · Figma AI</div>
+      </div>
+      <div class="exp-tag">Fase 3 &mdash; Prototipo</div>
+    </div>
+    <div class="exp-row">
+      <div class="exp-n">4</div>
+      <div>
+        <div class="exp-t">Video demo y publicación</div>
+        <div class="exp-s">Walkthrough grabado · Assets descargables · Publicado aquí</div>
+      </div>
+      <div class="exp-tag">Fase 4 &mdash; Publicación</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CASE STUDY / PRODUCTS — alternating layout ── -->
+<section class="sec" id="products" style="padding-bottom: 0;">
+  <div class="cases-header">
+    <div>
+      <p class="sec-label">Casos publicados</p>
+      <h2 class="sec-h">Case Study</h2>
+      <p class="sec-p" style="margin-top:12px">Productos hipotéticos presentados con rigor como si fueran reales.</p>
+    </div>
+    <a href="#" class="btn btn-ghost">Ver todos &rarr;</a>
+  </div>
+
+  <div class="case-item">
+    <div class="case-img">
+      <span class="case-img-label">01</span>
+      <span class="case-cat-badge">Fintech</span>
+    </div>
+    <div class="case-info">
+      <span class="case-label">Web Design · Fintech</span>
+      <h3 class="case-title">Plataforma de pagos B2B para LATAM.</h3>
+      <p class="case-desc">Sistema de cobros recurrentes con conciliación automática y dashboard para CFOs. Stack: Next.js + Stripe + PostgreSQL.</p>
+      <div class="case-status-row">
+        <span class="sbadge sbadge-ready">Listo para dev</span>
+      </div>
+      <a href="product-01.html" class="case-cta">See Details ↗</a>
+    </div>
+  </div>
+
+  <div class="case-item">
+    <div class="case-img">
+      <span class="case-img-label">02</span>
+      <span class="case-cat-badge">Edtech</span>
+    </div>
+    <div class="case-info">
+      <span class="case-label">App Design · Edtech</span>
+      <h3 class="case-title">LMS adaptativo con rutas de aprendizaje AI.</h3>
+      <p class="case-desc">Plataforma de cursos que ajusta el contenido según el progreso y estilo de cada estudiante usando modelos de lenguaje.</p>
+      <div class="case-status-row">
+        <span class="sbadge sbadge-proto">Prototipo</span>
+      </div>
+      <a href="product-02.html" class="case-cta">See Details ↗</a>
+    </div>
+  </div>
+
+  <div class="case-item">
+    <div class="case-img">
+      <span class="case-img-label">03</span>
+      <span class="case-cat-badge">DevTools</span>
+    </div>
+    <div class="case-info">
+      <span class="case-label">SaaS · Observabilidad</span>
+      <h3 class="case-title">Dashboard de observabilidad para startups.</h3>
+      <p class="case-desc">Métricas de producto, errores y performance en una sola vista sin configuración compleja. Pensado para equipos de 2-15 personas.</p>
+      <div class="case-status-row">
+        <span class="sbadge sbadge-proto">Prototipo</span>
+      </div>
+      <a href="product-03.html" class="case-cta">See Details ↗</a>
+    </div>
+  </div>
+
+  <div class="case-item" style="margin-bottom: 0;">
+    <div class="case-img">
+      <span class="case-img-label">04</span>
+      <span class="case-cat-badge">Marketplace</span>
+    </div>
+    <div class="case-info">
+      <span class="case-label">Web Design · Marketplace</span>
+      <h3 class="case-title">Marketplace de servicios para freelancers.</h3>
+      <p class="case-desc">Plataforma de contratación con escrow, reputación y contratos simplificados. Enfocado en LATAM.</p>
+      <div class="case-status-row">
+        <span class="sbadge sbadge-idea">Concepto</span>
+      </div>
+      <a href="product-04.html" class="case-cta">See Details ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── TESTIMONIAL ── -->
+<div class="testi">
+  <div>
+    <p class="testi-tag">Client Feedback</p>
+    <blockquote class="testi-q">
+      "El nivel de documentación es lo que más me sorprendió. No es solo una idea — es un producto que cualquier equipo puede tomar y construir desde el día uno."
+    </blockquote>
+    <div class="testi-author">
+      <div class="testi-av">👤</div>
+      <div>
+        <div class="testi-name">Carlos Mendoza</div>
+        <div class="testi-role">CTO · Startup fintech, México</div>
+        <div class="testi-wave">〜〜〜〜〜</div>
+      </div>
+    </div>
+  </div>
+  <div class="testi-x">✕</div>
+</div>
+
+<!-- ── STATS ── -->
+<div class="stats">
+  <div class="stat">
+    <div class="stat-num" data-target="12">00</div>
+    <div class="stat-lbl">Productos<br>publicados</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num" data-target="48">00</div>
+    <div class="stat-lbl">Documentos<br>descargables</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num" data-target="12">00</div>
+    <div class="stat-lbl">Videos demo<br>en YouTube</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num" data-target="5">00</div>
+    <div class="stat-lbl">Herramientas<br>AI usadas</div>
+  </div>
+</div>
+
+<!-- ── CONTACT ── -->
+<section class="contact" id="contact">
+  <div>
+    <h2 class="contact-h"><em>Say Hi!</em> and tell me<br>about your idea.</h2>
+    <p class="contact-sub">¿Tienes un producto en mente? ¿Quieres colaborar o usar alguno de los recursos publicados? Escríbeme.</p>
+    <p class="contact-sub-sm">Have a nice work? reach out and let's chat.</p>
+  </div>
+  <form class="form" onsubmit="return false;">
+    <div class="form-row">
+      <div class="form-field">
+        <label class="form-lbl">Nombre <sup>*</sup></label>
+        <input class="inp" type="text" placeholder="Hello." />
+      </div>
+      <div class="form-field">
+        <label class="form-lbl">Email <sup>*</sup></label>
+        <input class="inp" type="email" placeholder="Where can I reply." />
+      </div>
+    </div>
+    <div class="form-field">
+      <label class="form-lbl">Empresa o proyecto</label>
+      <input class="inp" type="text" placeholder="Your company or website?" />
+    </div>
+    <div class="form-field">
+      <label class="form-lbl">What's in your mind?</label>
+      <div class="tags-wrap">
+        <button type="button" class="tag on" onclick="this.classList.toggle('on')">Prototipo</button>
+        <button type="button" class="tag" onclick="this.classList.toggle('on')">Documentación</button>
+        <button type="button" class="tag" onclick="this.classList.toggle('on')">Colaboración</button>
+        <button type="button" class="tag" onclick="this.classList.toggle('on')">Consultoría</button>
+        <button type="button" class="tag" onclick="this.classList.toggle('on')">Otro</button>
+      </div>
+    </div>
+    <div class="form-foot">
+      <p class="form-note">I'll must get back to you within 24 hours</p>
+      <button type="submit" class="btn btn-dark">Send Me ✦</button>
+    </div>
+  </form>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="foot-links">
+    <a href="#">Dribbble</a>
+    <a href="#">LinkedIn</a>
+    <a href="#">Instagram</a>
+    <a href="#">Behance</a>
+  </div>
+  <div class="foot-copy">Personal portfolio · 2026</div>
+</footer>
+
+<!-- GSAP + ScrollTrigger -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+
+<script>
+  // ── THEME ──
+  const html = document.documentElement;
+  apply(localStorage.getItem('theme') || 'light');
+  function toggleTheme() { apply(html.dataset.theme === 'dark' ? 'light' : 'dark'); }
+  function apply(t) {
+    html.dataset.theme = t;
+    localStorage.setItem('theme', t);
+    document.querySelectorAll('.t-lbl').forEach(el => el.textContent = t === 'dark' ? 'Light' : 'Dark');
+  }
+
+  // ── GSAP ──
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Hero — entrada escalonada
+  gsap.from('.hero-eyebrow', { y: 20, opacity: 0, duration: 0.6, ease: 'power2.out' });
+  gsap.from('.hero-h1',      { y: 40, opacity: 0, duration: 0.7, ease: 'power3.out', delay: 0.1 });
+  gsap.from('.hero-sub',     { y: 30, opacity: 0, duration: 0.6, ease: 'power2.out', delay: 0.25 });
+  gsap.from('.hero-checks li', { y: 20, opacity: 0, duration: 0.5, ease: 'power2.out', stagger: 0.1, delay: 0.35 });
+  gsap.from('.hero-ctas .btn', { y: 20, opacity: 0, duration: 0.5, ease: 'power2.out', stagger: 0.1, delay: 0.55 });
+  gsap.from('.hero-right',   { x: 40, opacity: 0, duration: 0.9, ease: 'power3.out', delay: 0.2 });
+  gsap.from('.deco',         { opacity: 0, scale: 0.8, duration: 0.6, ease: 'back.out(1.7)', stagger: 0.15, delay: 0.7 });
+
+  // Offerings — slide up al entrar en viewport
+  gsap.from('.off-header > *', {
+    scrollTrigger: { trigger: '.off-header', start: 'top 85%' },
+    y: 30, opacity: 0, duration: 0.6, ease: 'power2.out', stagger: 0.12
+  });
+  gsap.from('.off-card', {
+    scrollTrigger: { trigger: '.off-grid', start: 'top 85%' },
+    y: 40, opacity: 0, duration: 0.6, ease: 'power2.out', stagger: 0.12
+  });
+
+  // Experience rows — slide desde la izquierda
+  gsap.from('.exp-row', {
+    scrollTrigger: { trigger: '.exp-list', start: 'top 85%' },
+    x: -30, opacity: 0, duration: 0.5, ease: 'power2.out', stagger: 0.1
+  });
+
+  // Case Study — fade in al entrar
+  gsap.utils.toArray('.case-item').forEach((el, i) => {
+    gsap.from(el, {
+      scrollTrigger: { trigger: el, start: 'top 88%' },
+      y: 30, opacity: 0, duration: 0.65, ease: 'power2.out', delay: i * 0.05
+    });
+  });
+
+  // Stats — contador animado
+  gsap.from('.stat', {
+    scrollTrigger: { trigger: '.stats', start: 'top 85%' },
+    y: 30, opacity: 0, duration: 0.5, ease: 'power2.out', stagger: 0.1,
+    onComplete() {
+      document.querySelectorAll('.stat-num').forEach(el => {
+        const target = parseInt(el.dataset.target);
+        if (isNaN(target)) return;
+        gsap.to({ val: 0 }, {
+          val: target, duration: 1.2, ease: 'power2.out',
+          onUpdate() { el.textContent = String(Math.round(this.targets()[0].val)).padStart(2, '0'); }
+        });
+      });
+    }
+  });
+
+  // Testimonial — fade in
+  gsap.from('.testi > *', {
+    scrollTrigger: { trigger: '.testi', start: 'top 85%' },
+    y: 24, opacity: 0, duration: 0.6, ease: 'power2.out', stagger: 0.15
+  });
+
+  // Contact — slide up
+  gsap.from('.contact > *', {
+    scrollTrigger: { trigger: '.contact', start: 'top 85%' },
+    y: 30, opacity: 0, duration: 0.6, ease: 'power2.out', stagger: 0.15
+  });
+</script>
+</body>
+</html>

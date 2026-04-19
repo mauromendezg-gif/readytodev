@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard de Observabilidad — Ready to Dev</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/product.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <a href="index.html" class="logo">it's me <b>→</b></a>
+  <nav class="topnav">
+    <a href="index.html#products"><span class="topnav-title">Productos</span><span class="topnav-desc">Todos los casos publicados.</span></a>
+    <a href="index.html#about"><span class="topnav-title">Acerca de</span><span class="topnav-desc">Método con AI.</span></a>
+    <a href="index.html#contact"><span class="topnav-title">Contacto</span><span class="topnav-desc">hola@productlab.io</span></a>
+    <button class="theme-btn" onclick="toggleTheme()">
+      <div class="track"><div class="thumb"></div></div>
+      <span class="t-lbl">Dark</span>
+    </button>
+  </nav>
+  <div class="topbar-email">hola@productlab.io</div>
+</header>
+
+<div class="breadcrumb">
+  <a href="index.html">Home</a><span>/</span>
+  <a href="index.html#products">Productos</a><span>/</span>
+  Dashboard de Observabilidad
+</div>
+
+<div class="prod-hero">
+  <div>
+    <p class="prod-eyebrow">DevTools · SaaS · Observabilidad</p>
+    <h1 class="prod-h1">Dashboard de<br>observabilidad<br>para startups.</h1>
+    <p class="prod-tagline">Métricas de producto, errores y performance en una sola vista. Sin configuración compleja, sin data engineers. Pensado para equipos de 2 a 15 personas.</p>
+  </div>
+  <div class="prod-meta">
+    <span class="sbadge sbadge-proto">Prototipo</span>
+    <span class="prod-date">Publicado: Marzo 2026</span>
+  </div>
+</div>
+
+<div class="prod-layout">
+  <div>
+
+    <div class="prod-video">
+      <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+
+    <div class="prod-section">
+      <div class="prod-section-title">Overview del producto</div>
+      <div class="doc-block">
+        <h4>El problema</h4>
+        <p>Las startups en etapa temprana no tienen un data engineer ni tiempo para configurar Datadog, Mixpanel y Sentry por separado. El resultado: decisiones de producto a ciegas, bugs descubiertos por usuarios y performance ignorada hasta que algo explota en producción.</p>
+      </div>
+      <div class="doc-block">
+        <h4>La solución</h4>
+        <p>Un único dashboard que combina errores (tipo Sentry), métricas de producto (tipo Mixpanel) y performance web (Core Web Vitals) — instalable con un script de 1 línea, sin configuración adicional.</p>
+      </div>
+      <div class="doc-block">
+        <h4>Diferenciadores</h4>
+        <ul>
+          <li>Setup en &lt; 5 minutos: una línea de código, cero configuración</li>
+          <li>Vista unificada: errores + métricas + performance en un solo lugar</li>
+          <li>Alertas inteligentes: solo notifica cuando importa (no spam)</li>
+          <li>Session replay para entender cómo el usuario llegó al error</li>
+          <li>Pricing por startup, no por enterprise (desde $49/mes)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="prod-section">
+      <div class="prod-section-title">PRD — Requerimientos</div>
+      <div class="doc-block">
+        <h4>Usuarios objetivo</h4>
+        <ul>
+          <li><strong>CTO / Tech Lead:</strong> Quiere visibilidad de errores en producción sin montar infraestructura compleja.</li>
+          <li><strong>Product Manager:</strong> Necesita saber qué features usan los usuarios sin exportar CSVs.</li>
+          <li><strong>Founder técnico:</strong> Quiere todo en un lugar, paga con tarjeta, no quiere contratos anuales.</li>
+        </ul>
+      </div>
+      <div class="doc-block">
+        <h4>Flujos principales</h4>
+        <ul>
+          <li>Signup → instalar snippet → primer dato llega en &lt; 2 min</li>
+          <li>Dashboard home: resumen de errores nuevos, DAU, p95 de carga</li>
+          <li>Click en error → stack trace + session replay + contexto del usuario</li>
+          <li>Funnel builder drag & drop para definir métricas de conversión</li>
+          <li>Alertas por Slack / email cuando error rate supera umbral</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="prod-section">
+      <div class="prod-section-title">Arquitectura técnica</div>
+      <div class="doc-block">
+        <h4>Ingesta de datos</h4>
+        <p>SDK JavaScript ligero (&lt; 8kb gzipped) que captura errores, eventos de usuario y Web Vitals. Envío en batch cada 5 segundos para no impactar performance del sitio cliente.</p>
+      </div>
+      <div class="doc-block">
+        <h4>Pipeline</h4>
+        <p>Eventos recibidos por Edge Functions (Vercel) → encolados en Vercel Queues → procesados y almacenados en ClickHouse para queries analíticos de alta velocidad.</p>
+      </div>
+      <div class="doc-block">
+        <h4>Stack completo</h4>
+        <ul>
+          <li>Frontend dashboard: Next.js 15 + Tremor + Recharts</li>
+          <li>SDK cliente: TypeScript vanilla, sin dependencias</li>
+          <li>Almacenamiento: ClickHouse Cloud (eventos) + PostgreSQL (usuarios, proyectos)</li>
+          <li>Session replay: rrweb para grabación del DOM</li>
+          <li>Alertas: Resend (email) + Slack API</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <aside class="prod-sidebar">
+
+    <div class="sidebar-block">
+      <div class="sidebar-label">Stack sugerido</div>
+      <div class="chips">
+        <span class="stack-chip">Next.js 15</span>
+        <span class="stack-chip">ClickHouse</span>
+        <span class="stack-chip">TypeScript</span>
+        <span class="stack-chip">Vercel Queues</span>
+        <span class="stack-chip">rrweb</span>
+        <span class="stack-chip">Tremor</span>
+        <span class="stack-chip">Resend</span>
+      </div>
+    </div>
+
+    <div class="sidebar-block">
+      <div class="sidebar-label">Construido con AI</div>
+      <div class="chips">
+        <span class="stack-chip">Claude</span>
+        <span class="stack-chip">Cursor</span>
+        <span class="stack-chip">v0.dev</span>
+      </div>
+    </div>
+
+    <div class="sidebar-block">
+      <div class="sidebar-label">Descargar</div>
+      <div class="dl-item">
+        <div><div class="dl-name">PRD completo</div><div class="dl-meta">PDF · 350 KB</div></div>
+        <span class="dl-btn">⬇ PDF</span>
+      </div>
+      <div class="dl-item">
+        <div><div class="dl-name">Schema SQL</div><div class="dl-meta">SQL · 14 KB</div></div>
+        <span class="dl-btn">⬇ SQL</span>
+      </div>
+      <div class="dl-item">
+        <div><div class="dl-name">Arquitectura</div><div class="dl-meta">PDF · 180 KB</div></div>
+        <span class="dl-btn">⬇ PDF</span>
+      </div>
+    </div>
+
+    <div class="sidebar-block">
+      <div class="sidebar-label">Prototipo funcional</div>
+      <a href="#" class="btn btn-dark btn-full">Ver prototipo ↗</a>
+    </div>
+
+  </aside>
+</div>
+
+<footer>
+  <div class="foot-links">
+    <a href="index.html">Home</a>
+    <a href="index.html#products">Productos</a>
+    <a href="index.html#contact">Contacto</a>
+  </div>
+  <div class="foot-copy">Ready to Dev · Mauricio Méndez · 2026</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+<script>
+  const html = document.documentElement;
+  apply(localStorage.getItem('theme') || 'light');
+  function toggleTheme() { apply(html.dataset.theme === 'dark' ? 'light' : 'dark'); }
+  function apply(t) {
+    html.dataset.theme = t; localStorage.setItem('theme', t);
+    document.querySelectorAll('.t-lbl').forEach(el => el.textContent = t === 'dark' ? 'Light' : 'Dark');
+  }
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.from('.prod-h1',      { y: 40, opacity: 0, duration: .7, ease: 'power3.out' });
+  gsap.from('.prod-tagline', { y: 24, opacity: 0, duration: .6, ease: 'power2.out', delay: .15 });
+  gsap.from('.prod-meta',    { x: 20, opacity: 0, duration: .6, ease: 'power2.out', delay: .2 });
+  gsap.from('.prod-video',   { y: 30, opacity: 0, duration: .7, ease: 'power2.out', delay: .1 });
+  gsap.utils.toArray('.prod-section').forEach(el => {
+    gsap.from(el, { scrollTrigger: { trigger: el, start: 'top 88%' }, y: 24, opacity: 0, duration: .6, ease: 'power2.out' });
+  });
+  gsap.utils.toArray('.sidebar-block').forEach((el, i) => {
+    gsap.from(el, { scrollTrigger: { trigger: el, start: 'top 92%' }, y: 20, opacity: 0, duration: .5, ease: 'power2.out', delay: i * .08 });
+  });
+</script>
+</body>
+</html>

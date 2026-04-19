@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marketplace de Servicios para Freelancers — Ready to Dev</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/product.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <a href="index.html" class="logo">it's me <b>→</b></a>
+  <nav class="topnav">
+    <a href="index.html#products"><span class="topnav-title">Productos</span><span class="topnav-desc">Todos los casos publicados.</span></a>
+    <a href="index.html#about"><span class="topnav-title">Acerca de</span><span class="topnav-desc">Método con AI.</span></a>
+    <a href="index.html#contact"><span class="topnav-title">Contacto</span><span class="topnav-desc">hola@productlab.io</span></a>
+    <button class="theme-btn" onclick="toggleTheme()">
+      <div class="track"><div class="thumb"></div></div>
+      <span class="t-lbl">Dark</span>
+    </button>
+  </nav>
+  <div class="topbar-email">hola@productlab.io</div>
+</header>
+
+<div class="breadcrumb">
+  <a href="index.html">Home</a><span>/</span>
+  <a href="index.html#products">Productos</a><span>/</span>
+  Marketplace de Freelancers
+</div>
+
+<div class="prod-hero">
+  <div>
+    <p class="prod-eyebrow">Marketplace · Servicios · Web Design</p>
+    <h1 class="prod-h1">Marketplace de<br>servicios para<br>freelancers.</h1>
+    <p class="prod-tagline">Plataforma de contratación con escrow nativo, sistema de reputación verificable y contratos inteligentes simplificados. Enfocado en el mercado latinoamericano.</p>
+  </div>
+  <div class="prod-meta">
+    <span class="sbadge sbadge-idea">Concepto</span>
+    <span class="prod-date">Publicado: Abril 2026</span>
+  </div>
+</div>
+
+<div class="prod-layout">
+  <div>
+
+    <div class="prod-video">
+      <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+
+    <div class="prod-section">
+      <div class="prod-section-title">Overview del producto</div>
+      <div class="doc-block">
+        <h4>El problema</h4>
+        <p>Los freelancers en LATAM operan sin protección: cobran adelantado y arriesgan no entregar, o entregan primero y el cliente desaparece. No existe un marketplace local con escrow confiable, cobros en moneda local y reputación verificable sin depender de una plataforma global con tarifas del 20%.</p>
+      </div>
+      <div class="doc-block">
+        <h4>La solución</h4>
+        <p>Un marketplace de servicios digitales con escrow nativo en moneda local, sistema de reputación vinculado a identidad verificada, y contratos simplificados que protegen a ambas partes sin necesidad de abogados.</p>
+      </div>
+      <div class="doc-block">
+        <h4>Ventajas competitivas</h4>
+        <ul>
+          <li>Escrow en moneda local: MXN, COP, CLP — sin conversión a USD</li>
+          <li>Reputación verificada con identidad (no anónima como en Fiverr)</li>
+          <li>Comisión del 8% (vs. 20% de Upwork / Fiverr)</li>
+          <li>Contratos pre-armados por tipo de servicio (diseño, desarrollo, marketing)</li>
+          <li>Soporte en español con resolución de disputas por árbitros locales</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="prod-section">
+      <div class="prod-section-title">PRD — Requerimientos</div>
+      <div class="doc-block">
+        <h4>Usuarios objetivo</h4>
+        <ul>
+          <li><strong>Freelancer:</strong> Diseñador, desarrollador o marketer digital en LATAM que quiere cobrar seguro y construir reputación local.</li>
+          <li><strong>Cliente:</strong> Empresa o emprendedor que necesita contratar talento digital sin intermediarios caros ni fricción.</li>
+        </ul>
+      </div>
+      <div class="doc-block">
+        <h4>Flujos principales</h4>
+        <ul>
+          <li>Freelancer publica servicio con precio, entregables y tiempo de entrega</li>
+          <li>Cliente compra → fondos van a escrow automáticamente</li>
+          <li>Freelancer entrega → cliente aprueba → fondos liberados</li>
+          <li>Disputa: árbitro revisa evidencia y decide en 72 horas</li>
+          <li>Reputación actualizada tras cada transacción completada</li>
+        </ul>
+      </div>
+      <div class="doc-block">
+        <h4>Métricas de éxito</h4>
+        <ul>
+          <li>Tasa de transacciones sin disputa &gt; 92%</li>
+          <li>Tiempo de resolución de disputas &lt; 48 horas</li>
+          <li>GMV mes 6 &gt; $200K USD equivalente</li>
+          <li>Retención de freelancers activos a 3 meses &gt; 55%</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="prod-section">
+      <div class="prod-section-title">Arquitectura técnica</div>
+      <div class="doc-block">
+        <h4>Escrow y pagos</h4>
+        <p>Escrow implementado como cuenta segregada por transacción. Integración con Conekta (MX), Wompi (CO), Khipu (CL) para cobro local. Desembolso a cuenta bancaria o CLABE del freelancer.</p>
+      </div>
+      <div class="doc-block">
+        <h4>Verificación de identidad</h4>
+        <p>KYC con Truora o Metamap para vincular la reputación a una persona real. Score de confianza calculado con historial de transacciones + velocidad de entrega + calificaciones.</p>
+      </div>
+      <div class="doc-block">
+        <h4>Stack</h4>
+        <ul>
+          <li>Frontend: Next.js 15, Tailwind, Radix UI</li>
+          <li>Backend: Node.js + Fastify, PostgreSQL (Neon)</li>
+          <li>Búsqueda: Algolia o Meilisearch para servicios</li>
+          <li>Chat entre partes: Stream Chat SDK</li>
+          <li>Notificaciones: Resend + Twilio SMS</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <aside class="prod-sidebar">
+
+    <div class="sidebar-block">
+      <div class="sidebar-label">Stack sugerido</div>
+      <div class="chips">
+        <span class="stack-chip">Next.js 15</span>
+        <span class="stack-chip">TypeScript</span>
+        <span class="stack-chip">Fastify</span>
+        <span class="stack-chip">PostgreSQL</span>
+        <span class="stack-chip">Algolia</span>
+        <span class="stack-chip">Truora</span>
+        <span class="stack-chip">Stream Chat</span>
+        <span class="stack-chip">Resend</span>
+      </div>
+    </div>
+
+    <div class="sidebar-block">
+      <div class="sidebar-label">Construido con AI</div>
+      <div class="chips">
+        <span class="stack-chip">Claude</span>
+        <span class="stack-chip">v0.dev</span>
+        <span class="stack-chip">Figma AI</span>
+      </div>
+    </div>
+
+    <div class="sidebar-block">
+      <div class="sidebar-label">Descargar</div>
+      <div class="dl-item">
+        <div><div class="dl-name">PRD completo</div><div class="dl-meta">PDF · 290 KB</div></div>
+        <span class="dl-btn">⬇ PDF</span>
+      </div>
+      <div class="dl-item">
+        <div><div class="dl-name">Schema SQL</div><div class="dl-meta">SQL · 16 KB</div></div>
+        <span class="dl-btn">⬇ SQL</span>
+      </div>
+      <div class="dl-item">
+        <div><div class="dl-name">Wireframes</div><div class="dl-meta">FIG · 2.8 MB</div></div>
+        <span class="dl-btn">⬇ FIG</span>
+      </div>
+    </div>
+
+    <div class="sidebar-block">
+      <div class="sidebar-label">Estado</div>
+      <p style="font-size:13px;color:var(--fg-muted);line-height:1.6">Este producto está en etapa de concepto. El prototipo estará disponible en Mayo 2026.</p>
+    </div>
+
+  </aside>
+</div>
+
+<footer>
+  <div class="foot-links">
+    <a href="index.html">Home</a>
+    <a href="index.html#products">Productos</a>
+    <a href="index.html#contact">Contacto</a>
+  </div>
+  <div class="foot-copy">Ready to Dev · Mauricio Méndez · 2026</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+<script>
+  const html = document.documentElement;
+  apply(localStorage.getItem('theme') || 'light');
+  function toggleTheme() { apply(html.dataset.theme === 'dark' ? 'light' : 'dark'); }
+  function apply(t) {
+    html.dataset.theme = t; localStorage.setItem('theme', t);
+    document.querySelectorAll('.t-lbl').forEach(el => el.textContent = t === 'dark' ? 'Light' : 'Dark');
+  }
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.from('.prod-h1',      { y: 40, opacity: 0, duration: .7, ease: 'power3.out' });
+  gsap.from('.prod-tagline', { y: 24, opacity: 0, duration: .6, ease: 'power2.out', delay: .15 });
+  gsap.from('.prod-meta',    { x: 20, opacity: 0, duration: .6, ease: 'power2.out', delay: .2 });
+  gsap.from('.prod-video',   { y: 30, opacity: 0, duration: .7, ease: 'power2.out', delay: .1 });
+  gsap.utils.toArray('.prod-section').forEach(el => {
+    gsap.from(el, { scrollTrigger: { trigger: el, start: 'top 88%' }, y: 24, opacity: 0, duration: .6, ease: 'power2.out' });
+  });
+  gsap.utils.toArray('.sidebar-block').forEach((el, i) => {
+    gsap.from(el, { scrollTrigger: { trigger: el, start: 'top 92%' }, y: 20, opacity: 0, duration: .5, ease: 'power2.out', delay: i * .08 });
+  });
+</script>
+</body>
+</html>

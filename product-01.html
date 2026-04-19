@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plataforma de Pagos B2B LATAM — Ready to Dev</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/product.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <a href="index.html" class="logo">it's me <b>→</b></a>
+  <nav class="topnav">
+    <a href="index.html#products"><span class="topnav-title">Productos</span><span class="topnav-desc">Todos los casos publicados.</span></a>
+    <a href="index.html#about"><span class="topnav-title">Acerca de</span><span class="topnav-desc">Método con AI.</span></a>
+    <a href="index.html#contact"><span class="topnav-title">Contacto</span><span class="topnav-desc">hola@productlab.io</span></a>
+    <button class="theme-btn" onclick="toggleTheme()">
+      <div class="track"><div class="thumb"></div></div>
+      <span class="t-lbl">Dark</span>
+    </button>
+  </nav>
+  <div class="topbar-email">hola@productlab.io</div>
+</header>
+
+<div class="breadcrumb">
+  <a href="index.html">Home</a>
+  <span>/</span>
+  <a href="index.html#products">Productos</a>
+  <span>/</span>
+  Plataforma de Pagos B2B LATAM
+</div>
+
+<div class="prod-hero">
+  <div>
+    <p class="prod-eyebrow">Fintech · Pagos · Web Design</p>
+    <h1 class="prod-h1">Plataforma de<br>pagos B2B<br>para LATAM.</h1>
+    <p class="prod-tagline">Sistema de cobros recurrentes con conciliación automática y dashboard para CFOs. Diseñado para empresas medianas de LATAM que operan en múltiples países.</p>
+  </div>
+  <div class="prod-meta">
+    <span class="sbadge sbadge-ready">Listo para dev</span>
+    <span class="prod-date">Publicado: Febrero 2026</span>
+  </div>
+</div>
+
+<div class="prod-layout">
+  <div>
+
+    <div class="prod-video">
+      <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+
+    <div class="prod-section">
+      <div class="prod-section-title">Overview del producto</div>
+      <div class="doc-block">
+        <h4>El problema</h4>
+        <p>Las empresas B2B en LATAM aún manejan cobros por transferencia manual, sin visibilidad en tiempo real del estado de pagos, con alta carga operativa en el equipo de finanzas y conciliaciones que toman días enteros.</p>
+      </div>
+      <div class="doc-block">
+        <h4>La solución</h4>
+        <p>Una plataforma de cobros recurrentes que automatiza el ciclo completo: emisión de facturas, cobro por múltiples métodos de pago (SPEI, PSE, KHIPU, tarjeta), conciliación automática y dashboard de tesorería en tiempo real para el CFO.</p>
+      </div>
+      <div class="doc-block">
+        <h4>Propuesta de valor</h4>
+        <ul>
+          <li>Reducción del 80% del tiempo en conciliaciones manuales</li>
+          <li>Cobros recurrentes automatizados con reintentos inteligentes</li>
+          <li>Dashboard de tesorería multi-moneda y multi-país</li>
+          <li>API pública para integración con ERP existentes (SAP, Oracle)</li>
+          <li>Cumplimiento fiscal embebido por país (CFDI, factura electrónica)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="prod-section">
+      <div class="prod-section-title">PRD — Requerimientos</div>
+      <div class="doc-block">
+        <h4>Usuarios objetivo</h4>
+        <ul>
+          <li><strong>CFO / Gerente financiero:</strong> Necesita visibilidad de flujo de caja en tiempo real sin depender del equipo contable.</li>
+          <li><strong>Equipo de cobranza:</strong> Quiere automatizar seguimiento a clientes morosos sin emails manuales.</li>
+          <li><strong>Cliente B2B pagador:</strong> Quiere pagar con su método preferido con evidencia inmediata.</li>
+        </ul>
+      </div>
+      <div class="doc-block">
+        <h4>Flujos principales</h4>
+        <ul>
+          <li>Crear y enviar factura/cobro desde el dashboard</li>
+          <li>Cliente recibe link de pago con múltiples métodos disponibles</li>
+          <li>Pago procesado → conciliación automática → notificación al CFO</li>
+          <li>Reintento automático ante rechazo (hasta 3 intentos con backoff)</li>
+          <li>Reporte mensual de tesorería exportable a Excel / PDF</li>
+        </ul>
+      </div>
+      <div class="doc-block">
+        <h4>Métricas de éxito</h4>
+        <ul>
+          <li>Tiempo de conciliación &lt; 5 min (vs. 6–8 horas manual)</li>
+          <li>Tasa de cobro exitoso al primer intento &gt; 78%</li>
+          <li>Días de cartera vencida reducidos en 40%</li>
+          <li>NPS empresas pagadoras &gt; 50</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="prod-section">
+      <div class="prod-section-title">Arquitectura técnica</div>
+      <div class="doc-block">
+        <h4>Frontend</h4>
+        <p>Next.js 15 con App Router. Dashboard construido con Tremor (componentes de datos). Internacionalización con next-intl para MX, CO, CL, PE. PWA para acceso móvil sin instalación.</p>
+      </div>
+      <div class="doc-block">
+        <h4>Backend</h4>
+        <p>Node.js con Fastify. Colas de trabajos con BullMQ + Redis para reintentos de cobro. Webhooks firmados para notificaciones a sistemas externos.</p>
+      </div>
+      <div class="doc-block">
+        <h4>Integraciones de pago</h4>
+        <ul>
+          <li>México: SPEI vía Conekta / OpenPay, OXXO Pay</li>
+          <li>Colombia: PSE vía Wompi / Nequi</li>
+          <li>Chile: Khipu, WebPay Plus</li>
+          <li>Tarjeta: Stripe para internacionales</li>
+        </ul>
+      </div>
+      <div class="doc-block">
+        <h4>Infraestructura</h4>
+        <p>PostgreSQL en Neon con Row Level Security por empresa. Redis (Upstash) para sesiones y cola de trabajos. Alojado en Vercel (frontend) + Railway (backend). Logs con Axiom.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <aside class="prod-sidebar">
+
+    <div class="sidebar-block">
+      <div class="sidebar-label">Stack sugerido</div>
+      <div class="chips">
+        <span class="stack-chip">Next.js 15</span>
+        <span class="stack-chip">TypeScript</span>
+        <span class="stack-chip">Fastify</span>
+        <span class="stack-chip">PostgreSQL</span>
+        <span class="stack-chip">Redis</span>
+        <span class="stack-chip">BullMQ</span>
+        <span class="stack-chip">Stripe</span>
+        <span class="stack-chip">Vercel</span>
+      </div>
+    </div>
+
+    <div class="sidebar-block">
+      <div class="sidebar-label">Construido con AI</div>
+      <div class="chips">
+        <span class="stack-chip">Claude</span>
+        <span class="stack-chip">v0.dev</span>
+        <span class="stack-chip">Cursor</span>
+        <span class="stack-chip">Figma AI</span>
+      </div>
+    </div>
+
+    <div class="sidebar-block">
+      <div class="sidebar-label">Descargar</div>
+      <div class="dl-item">
+        <div><div class="dl-name">PRD completo</div><div class="dl-meta">PDF · 380 KB</div></div>
+        <span class="dl-btn">⬇ PDF</span>
+      </div>
+      <div class="dl-item">
+        <div><div class="dl-name">Schema SQL</div><div class="dl-meta">SQL · 22 KB</div></div>
+        <span class="dl-btn">⬇ SQL</span>
+      </div>
+      <div class="dl-item">
+        <div><div class="dl-name">Wireframes</div><div class="dl-meta">FIG · 3.2 MB</div></div>
+        <span class="dl-btn">⬇ FIG</span>
+      </div>
+    </div>
+
+    <div class="sidebar-block">
+      <div class="sidebar-label">Prototipo funcional</div>
+      <a href="#" class="btn btn-dark btn-full">Ver prototipo ↗</a>
+    </div>
+
+  </aside>
+</div>
+
+<footer>
+  <div class="foot-links">
+    <a href="index.html">Home</a>
+    <a href="index.html#products">Productos</a>
+    <a href="index.html#contact">Contacto</a>
+  </div>
+  <div class="foot-copy">Ready to Dev · Mauricio Méndez · 2026</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+<script>
+  const html = document.documentElement;
+  apply(localStorage.getItem('theme') || 'light');
+  function toggleTheme() { apply(html.dataset.theme === 'dark' ? 'light' : 'dark'); }
+  function apply(t) {
+    html.dataset.theme = t; localStorage.setItem('theme', t);
+    document.querySelectorAll('.t-lbl').forEach(el => el.textContent = t === 'dark' ? 'Light' : 'Dark');
+  }
+
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.from('.prod-eyebrow', { y: 20, opacity: 0, duration: .6, ease: 'power2.out' });
+  gsap.from('.prod-h1',      { y: 40, opacity: 0, duration: .7, ease: 'power3.out', delay: .1 });
+  gsap.from('.prod-tagline', { y: 24, opacity: 0, duration: .6, ease: 'power2.out', delay: .2 });
+  gsap.from('.prod-meta',    { x: 20, opacity: 0, duration: .6, ease: 'power2.out', delay: .3 });
+  gsap.from('.prod-video',   { y: 30, opacity: 0, duration: .7, ease: 'power2.out', delay: .2 });
+  gsap.utils.toArray('.prod-section').forEach(el => {
+    gsap.from(el, { scrollTrigger: { trigger: el, start: 'top 88%' }, y: 24, opacity: 0, duration: .6, ease: 'power2.out' });
+  });
+  gsap.utils.toArray('.sidebar-block').forEach((el, i) => {
+    gsap.from(el, { scrollTrigger: { trigger: el, start: 'top 92%' }, y: 20, opacity: 0, duration: .5, ease: 'power2.out', delay: i * .08 });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LMS Adaptativo con AI — Ready to Dev</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/product.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <a href="index.html" class="logo">it's me <b>→</b></a>
+  <nav class="topnav">
+    <a href="index.html#products"><span class="topnav-title">Productos</span><span class="topnav-desc">Todos los casos publicados.</span></a>
+    <a href="index.html#about"><span class="topnav-title">Acerca de</span><span class="topnav-desc">Método con AI.</span></a>
+    <a href="index.html#contact"><span class="topnav-title">Contacto</span><span class="topnav-desc">hola@productlab.io</span></a>
+    <button class="theme-btn" onclick="toggleTheme()">
+      <div class="track"><div class="thumb"></div></div>
+      <span class="t-lbl">Dark</span>
+    </button>
+  </nav>
+  <div class="topbar-email">hola@productlab.io</div>
+</header>
+
+<div class="breadcrumb">
+  <a href="index.html">Home</a><span>/</span>
+  <a href="index.html#products">Productos</a><span>/</span>
+  LMS Adaptativo con AI
+</div>
+
+<div class="prod-hero">
+  <div>
+    <p class="prod-eyebrow">Edtech · LMS · App Design</p>
+    <h1 class="prod-h1">LMS adaptativo<br>con rutas de<br>aprendizaje AI.</h1>
+    <p class="prod-tagline">Plataforma de cursos que personaliza el contenido en tiempo real según el progreso, errores y estilo de aprendizaje de cada estudiante usando modelos de lenguaje.</p>
+  </div>
+  <div class="prod-meta">
+    <span class="sbadge sbadge-proto">Prototipo</span>
+    <span class="prod-date">Publicado: Marzo 2026</span>
+  </div>
+</div>
+
+<div class="prod-layout">
+  <div>
+
+    <div class="prod-video">
+      <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+
+    <div class="prod-section">
+      <div class="prod-section-title">Overview del producto</div>
+      <div class="doc-block">
+        <h4>El problema</h4>
+        <p>Los LMS tradicionales ofrecen el mismo contenido a todos los estudiantes sin importar su nivel, ritmo o forma de aprender. El resultado: abandono masivo, frustración y aprendizaje superficial que no se retiene.</p>
+      </div>
+      <div class="doc-block">
+        <h4>La solución</h4>
+        <p>Un LMS que usa IA para construir rutas de aprendizaje personalizadas: ajusta la dificultad, el formato del contenido (video, texto, quiz, ejercicio práctico) y el orden de los módulos según el comportamiento real de cada estudiante.</p>
+      </div>
+      <div class="doc-block">
+        <h4>Diferenciadores clave</h4>
+        <ul>
+          <li>Ruta de aprendizaje generada por IA, no por el instructor</li>
+          <li>Detección de conceptos que el estudiante no dominó → refuerzo automático</li>
+          <li>Formato de contenido adaptativo: video, texto, quiz o ejercicio según preferencia detectada</li>
+          <li>Dashboard del instructor con métricas de comprensión por alumno</li>
+          <li>Certificados verificables on-chain (opcional)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="prod-section">
+      <div class="prod-section-title">PRD — Requerimientos</div>
+      <div class="doc-block">
+        <h4>Usuarios objetivo</h4>
+        <ul>
+          <li><strong>Estudiante:</strong> Profesional en reconversión laboral que necesita aprender rápido y retener.</li>
+          <li><strong>Instructor / Content creator:</strong> Quiere que su curso tenga mayor tasa de completación.</li>
+          <li><strong>Empresa B2B:</strong> Quiere capacitar empleados con seguimiento real de aprendizaje.</li>
+        </ul>
+      </div>
+      <div class="doc-block">
+        <h4>Flujos principales</h4>
+        <ul>
+          <li>Diagnóstico inicial: quiz para detectar nivel y estilo del estudiante</li>
+          <li>Generación de ruta personalizada basada en diagnóstico + objetivo declarado</li>
+          <li>Consumo de contenido → tracking de tiempo, errores y clicks</li>
+          <li>IA evalúa comprensión y ajusta siguiente módulo en tiempo real</li>
+          <li>Instructor ve heatmap de dónde se pierden los estudiantes</li>
+        </ul>
+      </div>
+      <div class="doc-block">
+        <h4>Métricas de éxito</h4>
+        <ul>
+          <li>Tasa de completación &gt; 68% (vs. 15% promedio industria)</li>
+          <li>Retención del conocimiento a 30 días &gt; 60%</li>
+          <li>NPS estudiantes &gt; 55</li>
+          <li>Tiempo hasta primera lección completada &lt; 8 min</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="prod-section">
+      <div class="prod-section-title">Arquitectura técnica</div>
+      <div class="doc-block">
+        <h4>Frontend</h4>
+        <p>Next.js 15 con App Router. Player de video custom con tracking de eventos (pausa, rewind, velocidad). Offline-ready con Service Workers para contenido descargado.</p>
+      </div>
+      <div class="doc-block">
+        <h4>Motor de personalización (AI)</h4>
+        <p>API de Claude para generar recomendaciones de siguiente módulo basadas en historial del estudiante. Embeddings con pgvector para similitud semántica entre conceptos del curso.</p>
+      </div>
+      <div class="doc-block">
+        <h4>Infraestructura</h4>
+        <ul>
+          <li>PostgreSQL + pgvector (Neon) para historial de aprendizaje y embeddings</li>
+          <li>Videos en Cloudflare Stream (HLS adaptativo, low-latency)</li>
+          <li>Redis para sesiones y cache de recomendaciones</li>
+          <li>Background jobs con Inngest para recalcular rutas</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <aside class="prod-sidebar">
+
+    <div class="sidebar-block">
+      <div class="sidebar-label">Stack sugerido</div>
+      <div class="chips">
+        <span class="stack-chip">Next.js 15</span>
+        <span class="stack-chip">TypeScript</span>
+        <span class="stack-chip">Claude API</span>
+        <span class="stack-chip">pgvector</span>
+        <span class="stack-chip">Cloudflare Stream</span>
+        <span class="stack-chip">Inngest</span>
+        <span class="stack-chip">Neon</span>
+      </div>
+    </div>
+
+    <div class="sidebar-block">
+      <div class="sidebar-label">Construido con AI</div>
+      <div class="chips">
+        <span class="stack-chip">Claude</span>
+        <span class="stack-chip">v0.dev</span>
+        <span class="stack-chip">Cursor</span>
+      </div>
+    </div>
+
+    <div class="sidebar-block">
+      <div class="sidebar-label">Descargar</div>
+      <div class="dl-item">
+        <div><div class="dl-name">PRD completo</div><div class="dl-meta">PDF · 410 KB</div></div>
+        <span class="dl-btn">⬇ PDF</span>
+      </div>
+      <div class="dl-item">
+        <div><div class="dl-name">Schema SQL</div><div class="dl-meta">SQL · 18 KB</div></div>
+        <span class="dl-btn">⬇ SQL</span>
+      </div>
+      <div class="dl-item">
+        <div><div class="dl-name">Flujos de usuario</div><div class="dl-meta">PDF · 240 KB</div></div>
+        <span class="dl-btn">⬇ PDF</span>
+      </div>
+    </div>
+
+    <div class="sidebar-block">
+      <div class="sidebar-label">Prototipo funcional</div>
+      <a href="#" class="btn btn-dark btn-full">Ver prototipo ↗</a>
+    </div>
+
+  </aside>
+</div>
+
+<footer>
+  <div class="foot-links">
+    <a href="index.html">Home</a>
+    <a href="index.html#products">Productos</a>
+    <a href="index.html#contact">Contacto</a>
+  </div>
+  <div class="foot-copy">Ready to Dev · Mauricio Méndez · 2026</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+<script>
+  const html = document.documentElement;
+  apply(localStorage.getItem('theme') || 'light');
+  function toggleTheme() { apply(html.dataset.theme === 'dark' ? 'light' : 'dark'); }
+  function apply(t) {
+    html.dataset.theme = t; localStorage.setItem('theme', t);
+    document.querySelectorAll('.t-lbl').forEach(el => el.textContent = t === 'dark' ? 'Light' : 'Dark');
+  }
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.from('.prod-h1',      { y: 40, opacity: 0, duration: .7, ease: 'power3.out' });
+  gsap.from('.prod-tagline', { y: 24, opacity: 0, duration: .6, ease: 'power2.out', delay: .15 });
+  gsap.from('.prod-meta',    { x: 20, opacity: 0, duration: .6, ease: 'power2.out', delay: .2 });
+  gsap.from('.prod-video',   { y: 30, opacity: 0, duration: .7, ease: 'power2.out', delay: .1 });
+  gsap.utils.toArray('.prod-section').forEach(el => {
+    gsap.from(el, { scrollTrigger: { trigger: el, start: 'top 88%' }, y: 24, opacity: 0, duration: .6, ease: 'power2.out' });
+  });
+  gsap.utils.toArray('.sidebar-block').forEach((el, i) => {
+    gsap.from(el, { scrollTrigger: { trigger: el, start: 'top 92%' }, y: 20, opacity: 0, duration: .5, ease: 'power2.out', delay: i * .08 });
+  });
+</script>
+</body>
+</html>
