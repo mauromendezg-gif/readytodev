@@ -49,6 +49,10 @@
       transition: var(--t);
     }
     [data-theme="dark"] .topbar {
+      background: rgba(0,0,0,0.55);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    [data-theme="dark"] .topbar {
       background: rgba(12,12,12,0.6);
       border-bottom-color: rgba(255,255,255,0.07);
     }
@@ -322,9 +326,9 @@
       transition: var(--t); cursor: pointer;
     }
     .case-item:hover .case-info { background: var(--fg); color: var(--bg); transition: var(--t); }
-    .case-item:hover .case-label { color: rgba(255,255,255,.4); }
-    .case-item:hover .case-desc { color: rgba(255,255,255,.6); }
-    .case-item:hover .case-cta { color: rgba(255,255,255,.8); }
+    .case-item:hover .case-label { color: rgba(0,0,0,.4); }
+    .case-item:hover .case-desc { color: rgba(0,0,0,.6); }
+    .case-item:hover .case-cta { color: rgba(0,0,0,.8); }
     .case-item:last-child { border-bottom: 1px solid var(--border); }
     .case-item:nth-child(even) .case-img { order: 2; }
     .case-item:nth-child(even) .case-info { order: 1; }
